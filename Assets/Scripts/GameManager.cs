@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [Header("Prefabs")]
     public GameObject ClusterPref;
     public GameObject ProjectilePref;
+    public GameObject BombPref;
     [Header("Projectile settings")]
     [SerializeField] private Vector3 _spawnProjTrans;
     [SerializeField] private Vector3 _spawnSecondProjTrans;

@@ -1105,7 +1105,7 @@ LineRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Positions:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 1}
@@ -2559,6 +2559,9 @@ MonoBehaviour:
     volume: 0.8
   - name: StartGame
     clip: {fileID: 8300000, guid: 942d3073d6d13f248a54b7915c78dfc3, type: 3}
+    volume: 0.8
+  - name: Explode
+    clip: {fileID: 8300000, guid: 458dc10b587a33e40b3d21b002f6fcce, type: 3}
     volume: 0.8
 --- !u!4 &1520811884
 Transform:
