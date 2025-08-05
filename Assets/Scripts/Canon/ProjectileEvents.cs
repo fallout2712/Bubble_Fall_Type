@@ -2,10 +2,10 @@ using System;
 
 public static class ProjectileEvents
 {
-    public static event Action<Projectile> OnProjectileAttached;
+    public static event Action<ProjectileBehavior> OnBallProjectileAttached;
 
-    public static void RaiseProjectileAttached(Projectile projectile)
+    public static void RaiseBallProjectileAttached(ProjectileBehavior ballProjectile)
     {
-        OnProjectileAttached?.Invoke(projectile);
+        OnBallProjectileAttached?.Invoke(ballProjectile);
     }
 }

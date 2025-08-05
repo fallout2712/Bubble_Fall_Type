@@ -8,13 +8,13 @@ public class FloatingDetector : MonoBehaviour
     public LayerMask CellLayer;
     public void DetectFloatingCells()
     {
-        Cell[] allCells = FindObjectsOfType<Cell>(); // СРОЧНО!!!!! ПЕРЕДАЛАТЬ
+        Ball[] allCells = FindObjectsOfType<Ball>(); // СРОЧНО!!!!! ПЕРЕДАЛАТЬ
 
         // Список клеток, которые связаны с верхом
-        List<Cell> connectedToTop = new List<Cell>();
+        List<Ball> connectedToTop = new List<Ball>();
 
         // Очередь для BFS (обхода в ширину)
-        Queue<Cell> queue = new Queue<Cell>();
+        Queue<Ball> queue = new Queue<Ball>();
 
         //Найти самую верхнюю координату Y среди всех клеток с HasBall = true
         float topY = float.MinValue;
@@ -39,13 +39,13 @@ public class FloatingDetector : MonoBehaviour
         // BFS все клетки с HasBall = true, которые соединены с верхними клетками
         while (queue.Count > 0)
         {
-            Cell current = queue.Dequeue();
+            Ball current = queue.Dequeue();
 
             Collider2D[] neighbors = Physics2D.OverlapCircleAll(current.transform.position, radius, CellLayer);
 
             foreach (var hit in neighbors)
             {
-                Cell neighbor = hit.GetComponent<Cell>();
+                Ball neighbor = hit.GetComponent<Ball>();
                 if (neighbor != null && neighbor.HasBall && !connectedToTop.Contains(neighbor))
                 {
                     connectedToTop.Add(neighbor);
@@ -62,7 +62,7 @@ public class FloatingDetector : MonoBehaviour
 
             if (!connectedToTop.Contains(c))
             {
-                c.SetFallingCell();
+                c.SetFallingBall();
                 UIController.Instance.AddScore(10);
                 floatingCount++;
             }
@@ -75,14 +75,14 @@ public class FloatingDetector : MonoBehaviour
     }
     public void ClearAllBalls()
     {
-        Cell[] allCells = FindObjectsOfType<Cell>();
+        Ball[] allCells = FindObjectsOfType<Ball>();
 
         int removedCount = 0;
 
-        foreach (var cell in allCells)
+        foreach (var ball in allCells)
         {
 
-            cell.SetFallingCell();
+            ball.SetFallingBall();
             removedCount++;
         }
 

@@ -16,7 +16,7 @@ public class LoseDetect : MonoBehaviour
 
         foreach (var hit in hits)
         {
-            Cell targetCell = hit.GetComponent<Cell>();
+            Ball targetCell = hit.GetComponent<Ball>();
             if (targetCell != null && targetCell.HasBall)
             {
                 Debug.Log("Loss — найден Cell с HasBall = true");

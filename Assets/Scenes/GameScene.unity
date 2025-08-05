@@ -941,8 +941,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ClusterPref: {fileID: 8788339031037445102, guid: b34f61b65927410479df5feef0e2ba56, type: 3}
-  ProjectilePref: {fileID: 7292865525581657650, guid: ebef18f7dfee933438695278ca2b4d74, type: 3}
-  BombPref: {fileID: 0}
+  ProjectilePref: {fileID: 4045610978690466779, guid: abc00bf8c9debc149abf577ef953cd8a, type: 3}
+  BombPref: {fileID: 4045033331711002251, guid: ba47ab7ef1e638c478dab29b8974d6c1, type: 3}
   _spawnProjTrans: {x: 0, y: -12, z: 0}
   _spawnSecondProjTrans: {x: 2, y: -12, z: 0}
   _rotationControllerl: {fileID: 485145138}
@@ -960,6 +960,7 @@ MonoBehaviour:
   normalColor: {r: 0.39215687, g: 0.9647059, b: 1, a: 1}
   boostColor: {r: 1, g: 0.39215687, b: 0.58431375, a: 1}
   CurrentGameState: 0
+  LaunchPower: 45
 --- !u!4 &455079571
 Transform:
   m_ObjectHideFlags: 0
@@ -2048,6 +2049,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94067366b77f7724e8d47155795976d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boxSize: {x: 20, y: 4}
+  boxOffset: {x: 0, y: 0}
+  "\u0421ellLayer":
+    serializedVersion: 2
+    m_Bits: 392
 --- !u!61 &1151822060
 BoxCollider2D:
   m_ObjectHideFlags: 0

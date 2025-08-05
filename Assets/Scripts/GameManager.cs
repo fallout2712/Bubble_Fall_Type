@@ -18,8 +18,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Vector3 _spawnSecondProjTrans;
     [SerializeField] private RotationController _rotationControllerl;
     private Transform _lastCreatedClasterTrans;
-    private Projectile _currentProjectile;
-    private Projectile _secondProjectile;
+    private ProjectileBehavior _currentProjectile;
+    private ProjectileBehavior _secondProjectile;
     public bool CanShoot = true;
     [Header("Clear Floating Cells")]
     [SerializeField] private FloatingDetector _floatingDetector;
@@ -47,14 +47,18 @@ public class GameManager : MonoBehaviour
     public GameState CurrentGameState = GameState.StartMenu;
     [Header("Player prefs")]
     private string _recordKey = "Record";
+    [Header("Projectile settings")]
+    public float LaunchPower = 50f;
     private void OnEnable()
     {
-        ProjectileEvents.OnProjectileAttached += NextProjectile;
+        // ProjectileEvents.OnProjectileAttached += NextProjectile;
+        ProjectileEvents.OnBallProjectileAttached += NextProjectile;
     }
 
     private void OnDisable()
     {
-        ProjectileEvents.OnProjectileAttached -= NextProjectile;
+        // ProjectileEvents.OnProjectileAttached -= NextProjectile;
+        ProjectileEvents.OnBallProjectileAttached -= NextProjectile;
     }
     private void Awake()
     {
@@ -75,7 +79,7 @@ public class GameManager : MonoBehaviour
     }
     public GameState GetGameState()
     {
-        return CurrentGameState; 
+        return CurrentGameState;
     }
     private void CheckRecord()
     {
@@ -154,19 +158,28 @@ public class GameManager : MonoBehaviour
     }
     private void SpawnProjectile()
     {
-        GameObject lasCreatedProjectle = Instantiate(ProjectilePref, _spawnProjTrans, Quaternion.identity);
-        Cell cell = lasCreatedProjectle.GetComponent<Cell>();
-        cell.SetRandomColor();
-        _currentProjectile = lasCreatedProjectle.GetComponent<Projectile>();
+        GameObject lastCreatedProjectile = Instantiate(ProjectilePref, _spawnProjTrans, Quaternion.identity);
+        ProjectileBehavior ballProjectile = lastCreatedProjectile.GetComponent<ProjectileBehavior>();
+        ballProjectile.SetRandomSprite();
+        _currentProjectile = lastCreatedProjectile.GetComponent<ProjectileBehavior>();
     }
     private void SpawnSecondProjectile()
     {
-        GameObject lasCreatedProjectle = Instantiate(ProjectilePref, _spawnSecondProjTrans, Quaternion.identity);
-        Cell cell = lasCreatedProjectle.GetComponent<Cell>();
-        cell.SetRandomColor();
-        _secondProjectile = lasCreatedProjectle.GetComponent<Projectile>();
+        GameObject prefabToSpawn;
+        float chance = UnityEngine.Random.value; // от 0 до 1
+
+        if (chance < 0.1f) // 20% шанс
+            prefabToSpawn = BombPref;
+        else
+            prefabToSpawn = ProjectilePref;
+
+        GameObject lastCreatedProjectile = Instantiate(prefabToSpawn, _spawnSecondProjTrans, Quaternion.identity);
+        ProjectileBehavior projectileBehavior = lastCreatedProjectile.GetComponent<ProjectileBehavior>();
+        projectileBehavior.SetRandomSprite();
+
+        _secondProjectile = projectileBehavior;
     }
-    private void NextProjectile(Projectile p)
+    private void NextProjectile(ProjectileBehavior p)
     {
         _currentProjectile = _secondProjectile;
 
@@ -197,7 +210,7 @@ public class GameManager : MonoBehaviour
         _currentProjectile.transform.DOMove(secondPos, duration).SetEase(Ease.InOutSine);
         _secondProjectile.transform.DOMove(firstPos, duration).SetEase(Ease.InOutSine);
 
-        Projectile temp = _currentProjectile;
+        ProjectileBehavior temp = _currentProjectile;
         _currentProjectile = _secondProjectile;
         _secondProjectile = temp;
         AudioManager.Instance.Play("Switch");
@@ -208,7 +221,7 @@ public class GameManager : MonoBehaviour
     {
         if (CanShoot && _currentProjectile != null && !_currentProjectile.HasBeenUsed)
         {
-            _currentProjectile.Shoot(_rotationControllerl.GetAimDirection());
+            _currentProjectile.Launch(_rotationControllerl.GetAimDirection(), LaunchPower);
             CanShoot = false;
         }
     }

@@ -44,10 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35cc3f05b51d9b44d8ebb880e3857fbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Gird: 0b00000014000000
-  prefCircle: {fileID: 2727514365305277627, guid: 19537609602724241b8a89e46554da6f, type: 3}
-  BuildGridPos: {x: -5, y: 5}
-  SpaceWithGrid: 1
-  OffsetSide: 0.25
-  fallSpeed: 0.25
-  IsFall: 1
+  prefCircle: {fileID: 124730501019420375, guid: 2d205d619c5c7174d8c76ecaad585c44, type: 3}
+  _ballLayer:
+    serializedVersion: 2
+    m_Bits: 136
+  _radiusFindingBall: 1
